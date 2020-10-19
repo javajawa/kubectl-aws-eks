@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+set -x
 
 export readonly KUBECONFIG=/tmp/config
 
@@ -11,4 +12,6 @@ else
 	echo "$KUBE_CONFIG_DATA" | base64 -d >"$KUBECONFIG"
 fi
 
-exec kubectl "$@"
+cat /tmp/config
+
+kubectl "$@"
