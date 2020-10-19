@@ -14,6 +14,7 @@ fi
 
 cat /tmp/config
 
+aws --region eu-west-1 eks get-token --cluster-name operations-cluster
 kubectl config view
 kubectl config get-contexts                          # display list of contexts 
 kubectl config current-context                       # display the current-context
