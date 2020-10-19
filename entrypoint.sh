@@ -2,8 +2,13 @@
 
 set -e
 
-# Extract the base64 encoded config data and write this to the KUBECONFIG
-echo "$KUBE_CONFIG_DATA" | base64 -d > /tmp/config
-export KUBECONFIG=/tmp/config
+export readonly KUBECONFIG=/tmp/config
 
-sh -c "kubectl $*"
+if [ -z "$KUBE_CONFIG_DATA" ]
+then
+	aws eks update-kubeconfig --name "$KUBE_CLUSTER" --kubeconfig "$KUBECONFIG"
+else
+	echo "$KUBE_CONFIG_DATA" | base64 -d >"$KUBECONFIG"
+fi
+
+exec kubectl "$@"
