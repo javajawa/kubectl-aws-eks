@@ -14,4 +14,7 @@ fi
 
 cat /tmp/config
 
+kubectl config view
+kubectl config get-contexts                          # display list of contexts 
+kubectl config current-context                       # display the current-context
 kubectl "$@"
